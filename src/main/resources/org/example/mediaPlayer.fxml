@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="200.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.scene.MediaPlayerController">
+   <children>
+      <StackPane fx:id="informationBar" alignment="BOTTOM_LEFT" maxHeight="1080.0" maxWidth="1920.0">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="650.0" fitWidth="1300.0" pickOnBounds="true" />
+            <MediaView fx:id="mediaView" fitHeight="650.0" fitWidth="1280.0" preserveRatio="false" />
+            <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="1280.0" StackPane.alignment="BOTTOM_CENTER" />
+            <Text fx:id="text" strokeType="OUTSIDE" strokeWidth="0.0" visible="false">
+               <font>
+                  <Font size="80.0" />
+               </font>
+            </Text>
+            <VBox fx:id="startMenu" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label alignment="TOP_CENTER" text="Address" textAlignment="CENTER">
+                     <font>
+                        <Font size="42.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="ipAddressTextField" alignment="CENTER" prefHeight="26.0" prefWidth="1112.0" promptText="FTP IP ADDRESS" text="ftp123123.prv.pl">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="200.0" right="200.0" top="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="contentPathTextField" alignment="CENTER" promptText="PATH TO CONTENT DIRECTORY" text="/content/">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="200.0" right="200.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="dbFileNameTextField" alignment="CENTER" promptText="DATABASE FILE NAME" text="Slides.db">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="200.0" right="200.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label alignment="TOP_CENTER" text="Login Data" textAlignment="CENTER">
+                     <font>
+                        <Font size="42.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="loginTextField" alignment="CENTER" promptText="LOGIN" text="ftp123123@prv.pl">
+                     <VBox.margin>
+                        <Insets left="200.0" right="200.0" top="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <PasswordField fx:id="passwordTextField" alignment="CENTER" promptText="PASSWORD" text="haslo123">
+                     <VBox.margin>
+                        <Insets left="200.0" right="200.0" top="20.0" />
+                     </VBox.margin>
+                  </PasswordField>
+                  <HBox alignment="CENTER" prefHeight="61.0" prefWidth="1300.0">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="73.0" prefWidth="318.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="31.0" prefWidth="330.0" text="Screen share percentage">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Slider fx:id="barSizeSlider" blockIncrement="1.0" majorTickUnit="4.0" max="20.0" prefHeight="32.0" prefWidth="320.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets right="20.0" />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="63.0" prefWidth="132.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="31.0" prefWidth="330.0" text="Text Color">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ColorPicker fx:id="textColorPicker" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="63.0" prefWidth="124.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="31.0" prefWidth="118.0" text="Bar Color">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ColorPicker fx:id="barColorPicker">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </ColorPicker>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="73.0" prefWidth="318.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="31.0" prefWidth="330.0" text="Bar Opacity">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Slider fx:id="barOpacitySlider" blockIncrement="1.0" majorTickUnit="10.0" minorTickCount="1" prefHeight="32.0" prefWidth="320.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets right="20.0" />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Button fx:id="playButton" mnemonicParsing="false" onAction="#play" prefHeight="56.0" prefWidth="130.0" text="PLAY">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label fx:id="errorLabel" text="Error" textFill="#d70505" visible="false">
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+</VBox>
