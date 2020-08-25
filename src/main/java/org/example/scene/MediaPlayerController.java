@@ -19,7 +19,6 @@ import org.example.database.DBHandler;
 import org.example.database.adapter.DBHandlerSQLite;
 import org.example.files.FTPConnector;
 import org.example.files.FileManager;
-import org.example.files.XMLSettingsLoader;
 import org.example.model.NewsTicker;
 import org.example.model.Properties;
 import org.example.model.Slide;
