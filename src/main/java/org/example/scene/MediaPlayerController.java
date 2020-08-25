@@ -6,17 +6,22 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.Settings;
 import org.example.database.DBHandler;
 import org.example.database.adapter.DBHandlerSQLite;
 import org.example.files.FTPConnector;
 import org.example.files.FileManager;
+import org.example.files.XMLSettingsLoader;
 import org.example.model.NewsTicker;
+import org.example.model.Properties;
 import org.example.model.Slide;
 
 import java.util.List;
@@ -96,6 +101,8 @@ public class MediaPlayerController {
         // injecting containers to manager
         mediaManager = new MediaContainersManager(mediaView, imageView);
         newsTickerManager = new NewsTickerManager(text);
+
+        if (Settings.isSettingsLoaded) Platform.runLater(this::play);
     }
 
     private void setAllSceneProperties() {
@@ -128,10 +135,20 @@ public class MediaPlayerController {
     // TODO: make informationBar animation independent
     @FXML
     public void play() {
+        if (!Settings.isSettingsLoaded) {
+            Settings.login = loginTextField.getText();
+            Settings.password = passwordTextField.getText();
+            Settings.serverAddr = ipAddressTextField.getText();
+            Settings.contentPath = contentPathTextField.getText();
+            Settings.dbFileName = dbFileNameTextField.getText();
+        }
+
+        Settings.isSettingsLoaded = false;
+
         ftpConnector = new FTPConnector(
-                loginTextField.getText(),
-                passwordTextField.getText(),
-                ipAddressTextField.getText(),
+                Settings.login,
+                Settings.password,
+                Settings.serverAddr,
                 21
         );
 
@@ -144,7 +161,7 @@ public class MediaPlayerController {
         }
 
         //download db file for first time from ftp server
-        boolean dbFileDownloadSuccess = ftpConnector.downloadFile(contentPathTextField.getText(), dbFileNameTextField.getText());
+        boolean dbFileDownloadSuccess = ftpConnector.downloadFile(Settings.contentPath, Settings.dbFileName);
         if (!dbFileDownloadSuccess) {
             errorLabel.setVisible(true);
             errorLabel.setText("Cannot download db file from FTP Server!");
@@ -156,23 +173,27 @@ public class MediaPlayerController {
 
     private void startSlideShow() {
         setAllSceneProperties();
-        dbHandler = new DBHandlerSQLite("jdbc:sqlite:./content/" + dbFileNameTextField.getText());
+        dbHandler = new DBHandlerSQLite("jdbc:sqlite:./content/" + Settings.dbFileName);
 
         //thread responsible for showing new slides/videos
         //have to be in thread to not block UI thread
         Thread mediaThread = new Thread(() -> {
             while(true) {
 
-                ftpConnector.downloadFile(contentPathTextField.getText(), dbFileNameTextField.getText());
+                ftpConnector.downloadFile(Settings.contentPath, Settings.dbFileName);
                 //setup DB Connection
-                dbHandler = new DBHandlerSQLite("jdbc:sqlite:./content/" + dbFileNameTextField.getText());
+                dbHandler = new DBHandlerSQLite("jdbc:sqlite:./content/" + Settings.dbFileName);
 
                 List<Slide> slides = dbHandler.readSlides(); //slide representation from db
                 Set<String> fileNames = slides.stream()
                         .flatMap(slide -> Stream.of(slide.getName()))
                         .collect(Collectors.toSet()); //get set of filenames required in this iteration
 
-                FileManager.updateFilesInDirectory(fileNames, ftpConnector, contentPathTextField.getText());
+                FileManager.updateFilesInDirectory(fileNames, ftpConnector, Settings.contentPath);
+
+                //change properties of news ticher
+                Properties properties = dbHandler.readProperties();
+                if (properties != null) Platform.runLater(() -> changeProperties(properties));
 
                 for (Slide slide : slides) {
                     boolean status = mediaManager.setResource("./content/" + slide.getName(),
@@ -228,5 +249,20 @@ public class MediaPlayerController {
 
         mediaThread.start();
         newsTickerThread.start();
+    }
+
+    public void changeProperties(Properties properties) {
+        Stage stage = (Stage) text.getScene().getWindow();
+        rectangle.setFill(Color.web(properties.getBarColor()));
+        rectangle.setOpacity(1 - properties.getBarOpacity().doubleValue() / 100);
+        text.setFill(Color.web(properties.getTextColor()));
+        text.setFont(Font.font(
+                "System",
+                FontWeight.NORMAL,
+                FontPosture.REGULAR,
+                stage.getHeight() * properties.getScreenShare() / 100 - 10)
+        );
+        rectangle.setHeight(stage.getHeight() * properties.getScreenShare() / 100);
+        barSizeSlider.setValue(properties.getScreenShare());
     }
 }

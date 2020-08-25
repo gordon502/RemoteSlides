@@ -1,0 +1,8 @@
+<?xml version = "1.0"?>
+<settings>
+   <login>ftp123123@prv.pl</login>
+   <password>haslo123</password>
+   <address>ftp123123.prv.pl</address>
+   <contentpath>/content/</contentpath>
+   <dbfilename>Slides.db</dbfilename>
+</settings>

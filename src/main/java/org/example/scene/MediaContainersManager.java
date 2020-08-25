@@ -1,20 +1,13 @@
 package org.example.scene;
 
-
-import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import org.example.Config;
 import org.example.database.DBHandler;
-import org.example.model.Slide;
-
 import java.io.File;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Class responsible for easy switching between MediaView and ImageView
@@ -25,8 +18,6 @@ class MediaContainersManager extends Thread{
     private ImageView imageView;
 
     private MediaPlayer mediaPlayer;
-
-    private DBHandler dbHandler;
 
     private MediaType actualMediaType = null;
 

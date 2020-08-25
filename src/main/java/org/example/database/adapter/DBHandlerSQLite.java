@@ -1,6 +1,8 @@
 package org.example.database.adapter;
+import org.example.Settings;
 import org.example.database.DBHandler;
 import org.example.model.NewsTicker;
+import org.example.model.Properties;
 import org.example.model.Slide;
 
 import java.sql.*;
@@ -70,5 +72,24 @@ public class DBHandlerSQLite implements DBHandler {
         }
 
         return newsTickers;
+    }
+
+    public Properties readProperties() {
+        try {
+            Connection connection = this.connect();
+            String query = "select * from properties order by properties_id desc";
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                if (rs.getInt(1) > Settings.propertiesID) {
+                    Settings.propertiesID = rs.getInt(1);
+                    return new Properties(rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+                }
+            }
+        }
+        catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
     }
 }

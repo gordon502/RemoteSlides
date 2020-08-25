@@ -43,6 +43,7 @@ public class FTPConnector {
 
             OutputStream outputStream1 = new BufferedOutputStream(new FileOutputStream(downloadFileCopy));
             boolean success = ftpClient.retrieveFile(remoteFile1, outputStream1);
+            System.out.println(ftpClient.getReplyCode());
             outputStream1.close();
 
             if (success) {

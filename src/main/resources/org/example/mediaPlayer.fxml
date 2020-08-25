@@ -35,17 +35,17 @@
                         <Font size="42.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="ipAddressTextField" alignment="CENTER" prefHeight="26.0" prefWidth="1112.0" promptText="FTP IP ADDRESS" text="ftp123123.prv.pl">
+                  <TextField fx:id="ipAddressTextField" alignment="CENTER" prefHeight="26.0" prefWidth="1112.0" promptText="FTP IP ADDRESS">
                      <VBox.margin>
                         <Insets bottom="20.0" left="200.0" right="200.0" top="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="contentPathTextField" alignment="CENTER" promptText="PATH TO CONTENT DIRECTORY" text="/content/">
+                  <TextField fx:id="contentPathTextField" alignment="CENTER" promptText="PATH TO CONTENT DIRECTORY">
                      <VBox.margin>
                         <Insets bottom="20.0" left="200.0" right="200.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="dbFileNameTextField" alignment="CENTER" promptText="DATABASE FILE NAME" text="Slides.db">
+                  <TextField fx:id="dbFileNameTextField" alignment="CENTER" promptText="DATABASE FILE NAME">
                      <VBox.margin>
                         <Insets bottom="20.0" left="200.0" right="200.0" />
                      </VBox.margin>
@@ -55,12 +55,12 @@
                         <Font size="42.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="loginTextField" alignment="CENTER" promptText="LOGIN" text="ftp123123@prv.pl">
+                  <TextField fx:id="loginTextField" alignment="CENTER" promptText="LOGIN">
                      <VBox.margin>
                         <Insets left="200.0" right="200.0" top="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <PasswordField fx:id="passwordTextField" alignment="CENTER" promptText="PASSWORD" text="haslo123">
+                  <PasswordField fx:id="passwordTextField" alignment="CENTER" promptText="PASSWORD">
                      <VBox.margin>
                         <Insets left="200.0" right="200.0" top="20.0" />
                      </VBox.margin>

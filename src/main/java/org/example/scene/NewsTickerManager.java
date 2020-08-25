@@ -1,5 +1,6 @@
 package org.example.scene;
 
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -21,7 +22,7 @@ class NewsTickerManager extends Thread {
         double sceneWidth = text.getScene().getWidth();
         double msgWidth = text.getLayoutBounds().getWidth();
 
-        KeyValue initKeyValue = new KeyValue(text.translateXProperty(), sceneWidth);
+        KeyValue initKeyValue = new KeyValue(text.translateXProperty(), sceneWidth, Interpolator.LINEAR);
         KeyFrame initFrame = new KeyFrame(Duration.ZERO, initKeyValue);
 
         KeyValue endKeyValue = new KeyValue(text.translateXProperty(), -1.0
@@ -30,7 +31,7 @@ class NewsTickerManager extends Thread {
 
         Timeline timeline = new Timeline(initFrame, endFrame);
 
-        timeline.setCycleCount(1);
+        timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
     }

@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import org.example.files.XMLSettingsLoader;
 
 import java.io.IOException;
 
@@ -50,6 +51,14 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+
+        //read program arguments
+        if (args.length > 0) {
+            if (args[0].equals("config")) {
+                XMLSettingsLoader.load("settings.xml");
+            }
+        }
+
         launch();
     }
 

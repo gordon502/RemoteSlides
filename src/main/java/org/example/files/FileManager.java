@@ -24,7 +24,6 @@ public abstract class FileManager {
                 new File("./content/" + fileName).delete(); //just delete it
             }
         });
-
         fileNames.forEach(file -> {
             if (!dirFileNames.contains(file)) {
                 ftpConnector.downloadFile(ftpContentPath, file);
